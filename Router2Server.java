@@ -5,7 +5,7 @@ import java.net.*;
 import java.util.*;
 
 class Router2Server{
-    public static List<String> routingTableR2 = new ArrayList<String>();
+    public static List<String> routingTableR2 = new ArrayList<String>();    // Global list
 
     public static void main(String argv[]) throws Exception {
         String clientString;
@@ -26,6 +26,7 @@ class Router2Server{
         DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());
         
         do{
+            // Keeps scanner open until user inputs -1 or exit, at which point a break from the loop will occur
             System.out.println("Enter the next network IP: ");  
             userInput = userInputScanner.nextLine();
             if(!userInput.equals("-1") && !userInput.equals("exit")){
@@ -43,7 +44,7 @@ class Router2Server{
         userInputScanner.close();
 
         while(true){
-        // Keeps server on until user inputs exit, at which point a break from the loop will occur
+        // Keeps server on until user inputs exit on client side, at which point a break from the loop will occur
             clientString = inFromClient.readLine();
             System.out.println("Received from Client: " + clientString);
             
@@ -64,7 +65,6 @@ class Router2Server{
                 System.out.println("Goodbye");
                 break;
             }
-//            outToClient.writeBytes(clientString + '\n');    // '\n' is necessary. Don't know why yet.
         }
     }
 
