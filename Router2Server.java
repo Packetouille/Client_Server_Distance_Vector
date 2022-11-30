@@ -6,6 +6,7 @@ import java.util.*;
 
 class Router2Server{
     public static List<String> routingTableR2 = new ArrayList<String>();
+
     public static void main(String argv[]) throws Exception {
         String clientString;
         String userInput;
@@ -39,20 +40,22 @@ class Router2Server{
         } while (!userInput.equals("-1") && !userInput.equals("exit"));
         
         System.out.println("routingTableR2 contents: " + routingTableR2);
+        userInputScanner.close();
 
         while(true){
         // Keeps server on until user inputs exit, at which point a break from the loop will occur
             clientString = inFromClient.readLine();
             System.out.println("Received from Client: " + clientString);
             
+            // Converting clientString into array and building the routingTableR1 list
             clientStringArray = clientString.split(" ");
-
             for (String element: clientStringArray){
                 routingTableR1.add(element);
             }
 
             System.out.println("routingTableR1 contents: " + routingTableR1);
-  //          System.out.println("stringArray = " + stringArray);
+
+            runDistanceVectorAlgorithm(routingTableR1);
 
             if (!clientString.equals("exit")){
                 outToClient.writeBytes(clientString + '\n');                
@@ -61,11 +64,12 @@ class Router2Server{
                 System.out.println("Goodbye");
                 break;
             }
-//            outToClient.writeBytes(clientString);    // '\n' is necessary. Don't know why yet.
+//            outToClient.writeBytes(clientString + '\n');    // '\n' is necessary. Don't know why yet.
         }
     }
 
-    public static void runDistanceVectorAlgorithm(){
+    public static void runDistanceVectorAlgorithm(List<String> neighborList){
         // ALGORITHM GOES HERE. THE PARAMETERS MAY BE THE LISTS RATHER VARIABLES INDEPENDENTLY
+        System.out.println("I'm in the algorithm method! neighborList: " + neighborList);
     }
 }
