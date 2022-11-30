@@ -70,6 +70,29 @@ class Router2Server{
 
     public static void runDistanceVectorAlgorithm(List<String> neighborList){
         // ALGORITHM GOES HERE. THE PARAMETERS MAY BE THE LISTS RATHER VARIABLES INDEPENDENTLY
-        System.out.println("I'm in the algorithm method! neighborList: " + neighborList);
+        // List comes in as [ip1, distance1, neighbor1,...,ipN, distanceN, neighborN]
+        
+        System.out.println("Next Network IP | Distance | Neighbor");
+        for(int i = 0; i < neighborList.size(); i+=3){
+            System.out.println(neighborList.get(i) + " | " + neighborList.get(i+1) + " | " + neighborList.get(i+2));
+        }
+        /* Algorithm from text book
+        "Repeat forever { 
+            Wait for a routing message to arrive over the network from a neighbor; 
+            let the sender be switch N; 
+            for each entry in the message { 
+                Let V be the destination in the entry and let D be the distance; 
+                Compute C as D plus the weight assigned to the link over which the message arrived; 
+                Examine and update the local routing table: 
+                if (no route exists to V ) { 
+                    add an entry to the local routing table for destination V with next-hop N and distance C; 
+                } else if (a route exists that has next-hop N) { 
+                    replace the distance in existing route with C; 
+                } else if (a route exists with distance greater than C) { 
+                    change the next-hop to N and distance to C; 
+                } 
+            }"
+        }
+        */
     }
 }
