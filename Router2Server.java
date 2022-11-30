@@ -66,6 +66,6 @@ class Router2Server{
     }
 
     public static void runDistanceVectorAlgorithm(){
-        
+        // ALGORITHM GOES HERE. THE PARAMETERS MAY BE THE LISTS RATHER VARIABLES INDEPENDENTLY
     }
 }
