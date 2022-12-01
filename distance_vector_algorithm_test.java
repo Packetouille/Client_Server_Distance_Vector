@@ -20,12 +20,9 @@ public class distance_vector_algorithm_test {
         routingTableR1.add("1.2.4.0");
         routingTableR1.add("12");
         routingTableR1.add("R4");
-        routingTableR1.add("1.2.5.0");
-        routingTableR1.add("18");
-        routingTableR1.add("R3");
 
-        System.out.println(routingTableR1);
-        System.out.println(routingTableR2);
+        System.out.println("R1: " + routingTableR1);
+        System.out.println("R2: " + routingTableR2);
         runDistanceVectorAlgorithm(routingTableR1);
     }
 
@@ -35,27 +32,27 @@ public class distance_vector_algorithm_test {
         // V = destination | D = distance | N = next-hop | C = D + 2 (the weight assigned to the link over which message arrived)
 
         List<String> tempList = new ArrayList<String>();
+        int c = 0;
 
-        for(int i = 0; (i+2) < routingTableR1.size(); i+=3){
-            if(routingTableR2.indexOf(routingTableR1.get(i)) == -1){
+        for (int i = 0; (i+2) < routingTableR1.size(); i+=3){
+            if (routingTableR2.indexOf(routingTableR1.get(i)) == -1){
             // If no route exists to V then add the route to routingTableR2
                 routingTableR2.add(routingTableR1.get(i));
                 routingTableR2.add(routingTableR1.get(i+1));
                 routingTableR2.add(routingTableR1.get(i+2));
+            } else if ((routingTableR2.get(i) == routingTableR1.get(i)) && (routingTableR2.get(i+2) == routingTableR1.get(i+2))){
+            // If a route exists that has next-hop N then replace distance of existing route with C
+                c = Integer.parseInt(routingTableR1.get(i+1)) + 2; 
+                routingTableR2.set(i+1, String.valueOf(c));
+            } else if ((routingTableR2.get(i) == routingTableR1.get(i)) && (Integer.parseInt(routingTableR2.get(i+1)) > (Integer.parseInt(routingTableR1.get(i+1)) + 2))){
+            // If a route exists with distance greater than C then change the next-hop to N and distance to C
+                c = Integer.parseInt(routingTableR1.get(i+1)) + 2;
+                routingTableR2.set(i+1, String.valueOf(c));
+                routingTableR2.set(i+2, routingTableR1.get(i+2));
             }
-            // else if(){
-            // // If a route exists that has next-hop N then replace distance of existing route with C
-            // }else if(){
-
-            // }
             
-            // if r1[distance] + 2 < r2[distance] then update r2 with r1[distance] += 2 and Neighbor = R1
-            // if(routingTableR2.indexOf(d))
-            // if(Integer.parseInt(routingTableR1.get(i+1)) + 2 < Integer.parseInt(routingTableR2.get(i+2))){
-                
-            // }
         }
-        System.out.println(routingTableR2);
+        System.out.println("R2: " + routingTableR2);
         
         /* Algorithm from text book
         "Repeat forever { 
