@@ -71,11 +71,20 @@ class Router2Server{
     public static void runDistanceVectorAlgorithm(List<String> neighborList){
         // ALGORITHM GOES HERE. THE PARAMETERS MAY BE THE LISTS RATHER VARIABLES INDEPENDENTLY
         // List comes in as [ip1, distance1, neighbor1,...,ipN, distanceN, neighborN]
+
+        List<String> tempList = new ArrayList<String>();
         
         System.out.println("Next Network IP | Distance | Neighbor");
-        for(int i = 0; i < neighborList.size(); i+=3){
+        for(int i = 0; (i+2) < neighborList.size(); i+=3){
             System.out.println(neighborList.get(i) + " | " + neighborList.get(i+1) + " | " + neighborList.get(i+2));
+            // if r1[distance] + 2 < r2[distance] then update r2 with r1[distance] += 2 and Neighbor = R1
+            
+            if(Integer.parseInt(neighborList.get(i+1)) + 2 < Integer.parseInt(routingTableR2.get(i+2))){
+                
+            }
         }
+
+        
         /* Algorithm from text book
         "Repeat forever { 
             Wait for a routing message to arrive over the network from a neighbor; 
