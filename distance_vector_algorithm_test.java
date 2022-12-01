@@ -20,6 +20,10 @@ public class distance_vector_algorithm_test {
         routingTableR1.add("1.2.4.0");
         routingTableR1.add("12");
         routingTableR1.add("R4");
+        routingTableR1.add("1.2.5.0");
+        routingTableR1.add("7");
+        routingTableR1.add("R3");
+
 
         System.out.println("R1: " + routingTableR1);
         System.out.println("R2: " + routingTableR2);
@@ -36,16 +40,19 @@ public class distance_vector_algorithm_test {
 
         for (int i = 0; (i+2) < routingTableR1.size(); i+=3){
             if (routingTableR2.indexOf(routingTableR1.get(i)) == -1){
-            // If no route exists to V then add the route to routingTableR2
+                // If no route exists to V then add the route to routingTableR2
+                System.out.println("1 I'm in here!!!");
                 routingTableR2.add(routingTableR1.get(i));
                 routingTableR2.add(routingTableR1.get(i+1));
                 routingTableR2.add(routingTableR1.get(i+2));
             } else if ((routingTableR2.get(i) == routingTableR1.get(i)) && (routingTableR2.get(i+2) == routingTableR1.get(i+2))){
-            // If a route exists that has next-hop N then replace distance of existing route with C
+                // If a route exists that has next-hop N then replace distance of existing route with C
+                System.out.println("2 I'm in here!!!");
                 c = Integer.parseInt(routingTableR1.get(i+1)) + 2; 
                 routingTableR2.set(i+1, String.valueOf(c));
-            } else if ((routingTableR2.get(i) == routingTableR1.get(i)) && (Integer.parseInt(routingTableR2.get(i+1)) > (Integer.parseInt(routingTableR1.get(i+1)) + 2))){
-            // If a route exists with distance greater than C then change the next-hop to N and distance to C
+            } else if ((routingTableR2.get(i) == routingTableR1.get(i)) && (Integer.parseInt(routingTableR2.get(i+1)) >= (Integer.parseInt(routingTableR1.get(i+1)) + 2))){
+                // If a route exists with distance greater than C then change the next-hop to N and distance to C
+                System.out.println("3 I'm in here!!!");    
                 c = Integer.parseInt(routingTableR1.get(i+1)) + 2;
                 routingTableR2.set(i+1, String.valueOf(c));
                 routingTableR2.set(i+2, routingTableR1.get(i+2));

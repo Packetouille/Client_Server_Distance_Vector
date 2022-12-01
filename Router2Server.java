@@ -85,7 +85,7 @@ class Router2Server{
             // If a route exists that has next-hop N then replace distance of existing route with C
                 c = Integer.parseInt(routingTableR1.get(i+1)) + 2; 
                 routingTableR2.set(i+1, String.valueOf(c));
-            } else if ((routingTableR2.get(i) == routingTableR1.get(i)) && (Integer.parseInt(routingTableR2.get(i+1)) > (Integer.parseInt(routingTableR1.get(i+1)) + 2))){
+            } else if ((routingTableR2.get(i) == routingTableR1.get(i)) && (Integer.parseInt(routingTableR2.get(i+1)) >= (Integer.parseInt(routingTableR1.get(i+1)) + 2))){
                 // If a route exists with distance greater than C then change the next-hop to N and distance to C
                     c = Integer.parseInt(routingTableR1.get(i+1)) + 2;
                     routingTableR2.set(i+1, String.valueOf(c));
