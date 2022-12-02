@@ -92,11 +92,12 @@ class Router2Server{
         // V = destination | D = distance | N = next-hop | C = D + 2 (the weight assigned to the link over which message arrived)
         
         int c = 0;
+        int weight = 2;
 
         for (int i = 0; (i+2) < routingTableR1.size(); i+=3){
             if (routingTableR2.indexOf(routingTableR1.get(i)) == -1){
                 // If no route exists to V then add an entry to the local routing table for destination V with next-hop N and distance C
-                c = Integer.parseInt(routingTableR1.get(i+1)) + 2;
+                c = Integer.parseInt(routingTableR1.get(i+1)) + weight;
                 
                 routingTableR2.add(routingTableR1.get(i));
                 routingTableR2.add(String.valueOf(c));
@@ -107,11 +108,11 @@ class Router2Server{
                 System.out.println("IN HERE!");
                 System.out.println(routingTableR2.get(i+2) + " == " + routingTableR1.get(i+2));
 
-                c = Integer.parseInt(routingTableR1.get(i+1)) + 2; 
+                c = Integer.parseInt(routingTableR1.get(i+1)) + weight; 
                 routingTableR2.set(i+1, String.valueOf(c));
             } else if ((routingTableR2.get(i) == routingTableR1.get(i)) && (Integer.parseInt(routingTableR2.get(i+1)) > (Integer.parseInt(routingTableR1.get(i+1)) + 2))){
                 // If a route exists with distance greater than C then change the next-hop to N and distance to C   
-                c = Integer.parseInt(routingTableR1.get(i+1)) + 2;
+                c = Integer.parseInt(routingTableR1.get(i+1)) + weight;
                 routingTableR2.set(i+1, String.valueOf(c));
                 routingTableR2.set(i+2, routingTableR1.get(i+2));
             }
