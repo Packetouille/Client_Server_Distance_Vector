@@ -55,7 +55,6 @@ class Router2Server{
             }
 
             System.out.println("routingTableR1 contents: " + routingTableR1);
-
             runDistanceVectorAlgorithm(routingTableR1);
 
             if (!clientString.equals("exit")){
@@ -73,24 +72,29 @@ class Router2Server{
         // V = destination | D = distance | N = next-hop | C = D + 2 (the weight assigned to the link over which message arrived)
 
         int c = 0;
-        System.out.println("routingTableR2 contents Before: " + routingTableR2);
+        System.out.println("In Algorithm - routingTableR1: " + routingTableR1);
+        System.out.println("routingTableR2 before updates: " + routingTableR2);
 
-        for(int i = 0; (i+2) < routingTableR1.size(); i+=3){
-            if(routingTableR2.indexOf(routingTableR1.get(i)) == -1){
-            // If no route exists to V then add the route to routingTableR2
+        for (int i = 0; (i+2) < routingTableR1.size(); i+=3){
+            if (routingTableR2.indexOf(routingTableR1.get(i)) == -1){
+                // If no route exists to V then add the route to routingTableR2
+                System.out.println("1 I'm in here!!!");
                 routingTableR2.add(routingTableR1.get(i));
                 routingTableR2.add(routingTableR1.get(i+1));
                 routingTableR2.add(routingTableR1.get(i+2));
-            }else if((routingTableR2.get(i) == routingTableR1.get(i)) && (routingTableR2.get(i+2) == routingTableR1.get(i+2))){
-            // If a route exists that has next-hop N then replace distance of existing route with C
+            } else if ((routingTableR2.get(i) == routingTableR1.get(i)) && (routingTableR2.get(i+2) == routingTableR1.get(i+2))){
+                // If a route exists that has next-hop N then replace distance of existing route with C
+                System.out.println("2 I'm in here!!!");
                 c = Integer.parseInt(routingTableR1.get(i+1)) + 2; 
                 routingTableR2.set(i+1, String.valueOf(c));
             } else if ((routingTableR2.get(i) == routingTableR1.get(i)) && (Integer.parseInt(routingTableR2.get(i+1)) >= (Integer.parseInt(routingTableR1.get(i+1)) + 2))){
                 // If a route exists with distance greater than C then change the next-hop to N and distance to C
-                    c = Integer.parseInt(routingTableR1.get(i+1)) + 2;
-                    routingTableR2.set(i+1, String.valueOf(c));
-                    routingTableR2.set(i+2, routingTableR1.get(i+2));
+                System.out.println("3 I'm in here!!!");    
+                c = Integer.parseInt(routingTableR1.get(i+1)) + 2;
+                routingTableR2.set(i+1, String.valueOf(c));
+                routingTableR2.set(i+2, routingTableR1.get(i+2));
             }
+            
         }
         System.out.println("routingTableR2 contents After: " + routingTableR2);
     }
