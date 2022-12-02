@@ -3,7 +3,7 @@
 import java.io.*;
 import java.net.*;
 
-class Router1Client{
+class LunenfeldClient{
     public static void main(String argv[]) throws Exception {
         String userInput = "";
         String messageToSend = "";

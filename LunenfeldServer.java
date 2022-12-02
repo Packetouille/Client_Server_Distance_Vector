@@ -4,7 +4,7 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-class Router2Server{
+class LunenfeldServer{
     public static void main(String argv[]) throws Exception {
         String clientString;
         String userInput;
