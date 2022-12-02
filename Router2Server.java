@@ -13,6 +13,7 @@ class Router2Server{
         //List<String> r2Table = new ArrayList<String>();
         List<String> routingTableR1 = new ArrayList<String>();
         List<String> routingTableR2 = new ArrayList<String>();
+        List<String> updatedRoutingTableR2 = new ArrayList<String>();
         String[] clientStringArray;
         Scanner userInputScanner = new Scanner(System.in);
 
@@ -40,8 +41,9 @@ class Router2Server{
                 routingTableR2.add(userInput);
             }
         } while (!userInput.equals("-1") && !userInput.equals("exit"));
-        
-        System.out.println("routingTableR2 contents: " + routingTableR2);
+
+        System.out.println("\nR2 Routing Table");
+        printRoutingTable(routingTableR2);
         userInputScanner.close();
 
         while(true){
@@ -55,8 +57,13 @@ class Router2Server{
                 routingTableR1.add(element);
             }
 
-            System.out.println("routingTableR1 contents: " + routingTableR1);
-            runDistanceVectorAlgorithm(routingTableR1, routingTableR2);
+            System.out.println("\nR1 Routing Table");
+            printRoutingTable(routingTableR1);
+
+            updatedRoutingTableR2 = runDistanceVectorAlgorithm(routingTableR1, routingTableR2);
+
+            System.out.println("\nR2 Updated Routing Table");
+            printRoutingTable(updatedRoutingTableR2);
 
             if (!clientString.equals("exit")){
                 outToClient.writeBytes(clientString + '\n');                
@@ -80,7 +87,7 @@ class Router2Server{
         }
     }
 
-    public static void runDistanceVectorAlgorithm(List<String> routingTableR1, List<String> routingTableR2){
+    public static List<String> runDistanceVectorAlgorithm(List<String> routingTableR1, List<String> routingTableR2){
         // List comes in as [ip1, distance1, neighbor1,...,ipN, distanceN, neighborN]
         // V = destination | D = distance | N = next-hop | C = D + 2 (the weight assigned to the link over which message arrived)
         
@@ -88,9 +95,11 @@ class Router2Server{
 
         for (int i = 0; (i+2) < routingTableR1.size(); i+=3){
             if (routingTableR2.indexOf(routingTableR1.get(i)) == -1){
-                // If no route exists to V then add the route to routingTableR2
+                // If no route exists to V then add an entry to the local routing table for destination V with next-hop N and distance C
+                c = Integer.parseInt(routingTableR1.get(i+1)) + 2;
+                
                 routingTableR2.add(routingTableR1.get(i));
-                routingTableR2.add(routingTableR1.get(i+1));
+                routingTableR2.add(String.valueOf(c));
                 routingTableR2.add(routingTableR1.get(i+2));
             } else if ((routingTableR2.get(i) == routingTableR1.get(i)) && (routingTableR2.get(i+2) == routingTableR1.get(i+2))){
                 // If a route exists that has next-hop N then replace distance of existing route with C
@@ -108,13 +117,8 @@ class Router2Server{
             }
         }
 
-        System.out.println("\nR1 Routing Table After");
-        printRoutingTable(routingTableR1);
+        return routingTableR2;
 
-        System.out.println("\nR2 Routing Table After");
-        printRoutingTable(routingTableR2);
-
-        
         /* Algorithm from text book
         "Repeat forever { 
             Wait for a routing message to arrive over the network from a neighbor; 
