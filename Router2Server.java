@@ -5,17 +5,14 @@ import java.net.*;
 import java.util.*;
 
 class Router2Server{
-   // public static List<String> routingTableR2 = new ArrayList<String>();    // Global list
-
     public static void main(String argv[]) throws Exception {
         String clientString;
         String userInput;
-        //List<String> r2Table = new ArrayList<String>();
+        String[] clientStringArray;
+
         List<String> routingTableR1 = new ArrayList<String>();
         List<String> routingTableR2 = new ArrayList<String>();
         List<String> updatedRoutingTableR2 = new ArrayList<String>();
-        String[] clientStringArray;
-        Scanner userInputScanner = new Scanner(System.in);
 
         // Create socket for incoming request
         ServerSocket welcomeSocket = new ServerSocket(11112);
@@ -23,28 +20,28 @@ class Router2Server{
         // Wait for incoming connection request. TCP Connection setup
         Socket connectionSocket = welcomeSocket.accept();
 
-        // Create input (BufferedReader) & output (DataOutputStream) stream attached to socket
+        // Create input (BufferedReaders) & output (DataOutputStream) stream attached to socket
+        BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
         BufferedReader inFromClient = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
         DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());
         
         do{
             // Keeps scanner open until user inputs -1 or exit, at which point a break from the loop will occur
             System.out.println("Enter the next network IP: ");  
-            userInput = userInputScanner.nextLine();
+            userInput = inFromUser.readLine();
             if(!userInput.equals("-1") && !userInput.equals("exit")){
                 routingTableR2.add(userInput);
                 System.out.println("Enter the distance to the network: ");  
-                userInput = userInputScanner.nextLine();
+                userInput = inFromUser.readLine();
                 routingTableR2.add(userInput);
                 System.out.println("Enter the neighbor: ");  
-                userInput = userInputScanner.nextLine();
+                userInput = inFromUser.readLine();
                 routingTableR2.add(userInput);
             }
         } while (!userInput.equals("-1") && !userInput.equals("exit"));
 
         System.out.println("\nR2 Routing Table");
         printRoutingTable(routingTableR2);
-        userInputScanner.close();
 
         while(true){
         // Keeps server on until user inputs exit on client side, at which point a break from the loop will occur

@@ -12,20 +12,20 @@ public class algorithm_test {
         // FOR TESTING WITH BUFFEREDREADER USE THIS BLOCK*********************
             // String userInput = "";
 
-            // BufferedReader inFromClient = new BufferedReader(new InputStreamReader(System.in));
+            // BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
 
             // System.out.println("Let's populate R2 Routing Table");
             // do{ // Populate routingTableR2
             //     // Keeps scanner open until user inputs -1 or exit, at which point a break from the loop will occur
             //     System.out.println("Enter the next network IP: ");  
-            //     userInput = inFromClient.readLine();
+            //     userInput = inFromUser.readLine();
             //     if(!userInput.equals("-1")){
             //         routingTableR2.add(userInput);
             //         System.out.println("Enter the distance to the network: ");  
-            //         userInput = inFromClient.readLine();;
+            //         userInput = inFromUser.readLine();;
             //         routingTableR2.add(userInput);
             //         System.out.println("Enter the neighbor: ");  
-            //         userInput = inFromClient.readLine();
+            //         userInput = inFromUser.readLine();
             //         routingTableR2.add(userInput);
             //     }
             // } while (!userInput.equals("-1"));
@@ -34,14 +34,14 @@ public class algorithm_test {
             // do{ // Populate routingTableR1
             //     // Keeps scanner open until user inputs -1 or exit, at which point a break from the loop will occur
             //     System.out.println("Enter the next network IP: ");  
-            //     userInput = inFromClient.readLine();
+            //     userInput = inFromUser.readLine();
             //     if(!userInput.equals("-1")){
             //         routingTableR1.add(userInput);
             //         System.out.println("Enter the distance to the network: ");  
-            //         userInput = inFromClient.readLine();;
+            //         userInput = inFromUser.readLine();;
             //         routingTableR1.add(userInput);
             //         System.out.println("Enter the neighbor: ");  
-            //         userInput = inFromClient.readLine();
+            //         userInput = inFromUser.readLine();
             //         routingTableR1.add(userInput);
             //     }
             // } while (!userInput.equals("-1"));
