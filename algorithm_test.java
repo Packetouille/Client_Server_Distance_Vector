@@ -71,7 +71,6 @@ public class algorithm_test {
     }
 
     public static void runDistanceVectorAlgorithm(List<String> routingTableR1){
-        // ALGORITHM GOES HERE. THE PARAMETERS MAY BE THE LISTS RATHER VARIABLES INDEPENDENTLY
         // List comes in as [ip1, distance1, neighbor1,...,ipN, distanceN, neighborN]
         // V = destination | D = distance | N = next-hop | C = D + 2 (the weight assigned to the link over which message arrived)
         
