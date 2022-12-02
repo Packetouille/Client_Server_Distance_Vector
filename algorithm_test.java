@@ -23,7 +23,7 @@ public class algorithm_test {
             //         userInput = inFromClient.readLine();;
             //         routingTableR2.add(userInput);
             //         System.out.println("Enter the neighbor: ");  
-            //         userInput = inFromClient.readLine();;
+            //         userInput = inFromClient.readLine();
             //         routingTableR2.add(userInput);
             //     }
             // } while (!userInput.equals("-1"));
@@ -39,7 +39,7 @@ public class algorithm_test {
             //         userInput = inFromClient.readLine();;
             //         routingTableR1.add(userInput);
             //         System.out.println("Enter the neighbor: ");  
-            //         userInput = inFromClient.readLine();;
+            //         userInput = inFromClient.readLine();
             //         routingTableR1.add(userInput);
             //     }
             // } while (!userInput.equals("-1"));
@@ -65,9 +65,25 @@ public class algorithm_test {
         //********************************************************************
 
 
-        System.out.println("R1 Length = " + routingTableR1.size() + " | R1: " + routingTableR1);
-        System.out.println("R2 Length = " + routingTableR2.size() + " | R2: " + routingTableR2);
+        System.out.println("\nR1 Routing Table");
+        printRoutingTable(routingTableR1);
+
+
+        System.out.println("\nR2 Routing Table");
+        printRoutingTable(routingTableR2);
         runDistanceVectorAlgorithm(routingTableR1);
+    }
+
+    public static void printRoutingTable(List<String> routingTable){
+        System.out.println("DESTINATION | DISTANCE | NEXT HOP");
+
+        for (int i = 0; (i+2) < routingTable.size(); i+=3){
+            if(routingTable.get(i+1).length() == 1){
+                System.out.println("  " + routingTable.get(i) + "  " + " | " + "    " + routingTable.get(i+1) + "   " + " | " + "   " + routingTable.get(i+2) + "   ");
+            } else{
+                System.out.println("  " + routingTable.get(i) + "  " + " | " + "   " + routingTable.get(i+1) + "   " + " | " + "   " + routingTable.get(i+2) + "   ");                
+            }
+        }
     }
 
     public static void runDistanceVectorAlgorithm(List<String> routingTableR1){
@@ -92,10 +108,14 @@ public class algorithm_test {
                 routingTableR2.set(i+1, String.valueOf(c));
                 routingTableR2.set(i+2, routingTableR1.get(i+2));
             }
-            
         }
 
-        System.out.println("R2 AFTER: " + routingTableR2);
+        System.out.println("\nR1 Routing Table After");
+        printRoutingTable(routingTableR1);
+
+        System.out.println("\nR2 Routing Table After");
+        printRoutingTable(routingTableR2);
+
         
         /* Algorithm from text book
         "Repeat forever { 
