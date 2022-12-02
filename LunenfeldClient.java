@@ -29,9 +29,9 @@ class LunenfeldClient{
                     System.out.println("Enter the distance to the network: ");  
                     messageToSend += userInput = inFromUser.readLine() + " ";
                     System.out.println("Enter the neighbor: ");  
-                    neighbor= userInput = inFromUser.readLine() + " ";
+                    neighbor= userInput = inFromUser.readLine() + " ";      // Store neighbor separately as it will not be sent to server.
                 }
-            } while (!userInput.equals("-1") && !userInput.equals("exit"));
+            } while(!userInput.equals("-1") && !userInput.equals("exit"));
             if(userInput.equals("-1")){
                 outToServer.writeBytes(messageToSend + '\n');
             } else{

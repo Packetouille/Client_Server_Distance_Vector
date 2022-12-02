@@ -45,10 +45,10 @@ class LunenfeldServer{
             clientString = inFromClient.readLine();
             System.out.println("Received from Client: " + clientString);
             
-            // Converting clientString into array and building the routingTableR1 list
-            clientStringArray = clientString.split(" ");
+            clientStringArray = clientString.split(" ");    // Converting clientString into array for building of routingTableR1
 
-            int count = 0;
+            // Build routing table while adding XX to neighbor field since it is not part of the incoming message
+            int count = 0;  // count variable is used for keeping track of the indices where a "XX" should be insterted
             for(int i = 0; i < clientStringArray.length; i++){
                 count++;
                 routingTableR1.add(clientStringArray[i]);
@@ -111,7 +111,7 @@ class LunenfeldServer{
             }else if ((routingTableR2.get(i).equals(routingTableR1.get(i)) && (routingTableR2.get(i+2).equals("R1")))){
                 // If a route exists that has next-hop N then replace distance of existing route with C
                 
-                // THE SECOND PART OF THIS LOGIC TEST IS WRONG. IF R1's MESSAGE IS ONLY PASSING 
+                // THE SECOND PART OF THIS LOGIC TEST MAY BE WRONG. IF R1's MESSAGE IS ONLY PASSING 
                 // THE DESTINATION AND DISTANCE, HOW DO WE KNOW WHAT ITS NEXT HOPS ARE WITHIN THE SERVER????
                 c = Integer.parseInt(routingTableR1.get(i+1)) + weight; 
                 routingTableR2.set(i+1, String.valueOf(c));
