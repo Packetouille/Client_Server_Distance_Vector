@@ -3,9 +3,10 @@ import java.net.*;
 import java.util.*;
 
 public class algorithm_test {
-    public static List<String> routingTableR2 = new ArrayList<String>();    // Global list
+//    public static List<String> routingTableR2 = new ArrayList<String>();    // Global list
     public static void main(String argv[]) throws Exception {
         List<String> routingTableR1 = new ArrayList<String>();
+        List<String> routingTableR2 = new ArrayList<String>();
 
         // FOR TESTING WITH BUFFEREDREADER USE THIS BLOCK*********************
             // String userInput = "";
@@ -68,10 +69,10 @@ public class algorithm_test {
         System.out.println("\nR1 Routing Table");
         printRoutingTable(routingTableR1);
 
-
         System.out.println("\nR2 Routing Table");
         printRoutingTable(routingTableR2);
-        runDistanceVectorAlgorithm(routingTableR1);
+
+        runDistanceVectorAlgorithm(routingTableR1, routingTableR2);
     }
 
     public static void printRoutingTable(List<String> routingTable){
@@ -86,7 +87,7 @@ public class algorithm_test {
         }
     }
 
-    public static void runDistanceVectorAlgorithm(List<String> routingTableR1){
+    public static void runDistanceVectorAlgorithm(List<String> routingTableR1, List<String> routingTableR2){
         // List comes in as [ip1, distance1, neighbor1,...,ipN, distanceN, neighborN]
         // V = destination | D = distance | N = next-hop | C = D + 2 (the weight assigned to the link over which message arrived)
         
@@ -100,6 +101,9 @@ public class algorithm_test {
                 routingTableR2.add(routingTableR1.get(i+2));
             } else if ((routingTableR2.get(i) == routingTableR1.get(i)) && (routingTableR2.get(i+2) == routingTableR1.get(i+2))){
                 // If a route exists that has next-hop N then replace distance of existing route with C
+                //routingTableR2.get(i+2) == routingTableR1.get(i+2)
+                System.out.println("IN HERE!");
+                System.out.println(routingTableR2.get(i+2) + " == " + routingTableR1.get(i+2));
                 c = Integer.parseInt(routingTableR1.get(i+1)) + 2; 
                 routingTableR2.set(i+1, String.valueOf(c));
             } else if ((routingTableR2.get(i) == routingTableR1.get(i)) && (Integer.parseInt(routingTableR2.get(i+1)) > (Integer.parseInt(routingTableR1.get(i+1)) + 2))){
