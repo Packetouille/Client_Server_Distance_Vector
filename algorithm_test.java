@@ -8,6 +8,7 @@ public class algorithm_test {
         List<String> routingTableR1 = new ArrayList<String>();
         List<String> routingTableR2 = new ArrayList<String>();
         List<String> updatedRoutingTableR2 = new ArrayList<String>();
+        String clientMessage = "";
 
         // FOR TESTING WITH BUFFEREDREADER USE THIS BLOCK*********************
             // String userInput = "";
@@ -55,15 +56,20 @@ public class algorithm_test {
             routingTableR2.add("17");
             routingTableR2.add("R4");
 
-            routingTableR1.add("1.2.3.0");
-            routingTableR1.add("22");
-            routingTableR1.add("R3");
-            routingTableR1.add("1.2.4.0");
-            routingTableR1.add("12");
-            routingTableR1.add("R4");
-            routingTableR1.add("1.2.5.0");
-            routingTableR1.add("7");
-            routingTableR1.add("R3");
+            clientMessage = "1.2.3.0 22 1.2.4.0 12 1.2.5.0 7";    // Incoming message does not include neighbors
+            String[] clientStringArray;
+
+            clientStringArray = clientMessage.split(" ");
+            
+            int count = 0;
+            for(int i = 0; i < clientStringArray.length; i++){
+                count++;
+                routingTableR1.add(clientStringArray[i]);
+                if(count == 2){
+                    routingTableR1.add("XX");
+                    count = 0;
+                }
+            }
         //********************************************************************
 
 
@@ -104,25 +110,22 @@ public class algorithm_test {
                 routingTableR2.add(routingTableR1.get(i));
                 routingTableR2.add(String.valueOf(c));
                 routingTableR2.add("R1"); // next hop is sender
-            } else if ((routingTableR2.get(i) == routingTableR1.get(i)) && (routingTableR2.get(i+2) == "R1")){
+            } 
+            
+            // THE SECOND PART OF THE LOGIC IN THE FIRST ELSE IF STATEMENT IS WRONG. IF R1's MESSAGE IS ONLY PASSING 
+            // THE DESTINATION AND DISTANCE, HOW DO WE KNOW WHAT THE NEXT HOP IS FOR R1?????
+            else if ((routingTableR2.get(i).equals(routingTableR1.get(i)) && (routingTableR2.get(i+2).equals("R1")))){
                 // If a route exists that has next-hop N then replace distance of existing route with C
-                
-                System.out.println("IN HERE!");
-                System.out.println(routingTableR2.get(i+2) + " == " + routingTableR1.get(i+2));
-
                 c = Integer.parseInt(routingTableR1.get(i+1)) + weight; 
                 routingTableR2.set(i+1, String.valueOf(c));
-            } else if ((routingTableR2.get(i) == routingTableR1.get(i)) && (Integer.parseInt(routingTableR2.get(i+1)) > (Integer.parseInt(routingTableR1.get(i+1)) + 2))){
+            } 
+            
+            else if ((routingTableR2.get(i).equals(routingTableR1.get(i))) && (Integer.parseInt(routingTableR2.get(i+1)) > (Integer.parseInt(routingTableR1.get(i+1)) + 2))){
                 // If a route exists with distance greater than C then change the next-hop to N and distance to C   
                 c = Integer.parseInt(routingTableR1.get(i+1)) + weight;
                 routingTableR2.set(i+1, String.valueOf(c));
                 routingTableR2.set(i+2, "R1");
             }
-
-            System.out.println("routingTableR2.get(i) [" + routingTableR2.get(i) + "] == routingTableR1.get(i) [" + routingTableR1.get(i) + "]: " 
-                    + (routingTableR2.get(i) == routingTableR1.get(i)) 
-                    + "\nroutingTableR2.get(i+2) [" + routingTableR2.get(i+2) + "] == routingTableR1.get(i+2) [" + routingTableR1.get(i+2) + "]: " 
-                    + (routingTableR2.get(i+2) == routingTableR1.get(i+2)));
         }
 
         return routingTableR2;

@@ -7,6 +7,7 @@ class Router1Client{
     public static void main(String argv[]) throws Exception {
         String userInput = "";
         String messageToSend = "";
+        String neighbor = "";
         String serverResponse;
 
         // Create input stream
@@ -28,7 +29,7 @@ class Router1Client{
                     System.out.println("Enter the distance to the network: ");  
                     messageToSend += userInput = inFromUser.readLine() + " ";
                     System.out.println("Enter the neighbor: ");  
-                    messageToSend += userInput = inFromUser.readLine() + " ";
+                    neighbor= userInput = inFromUser.readLine() + " ";
                 }
             } while (!userInput.equals("-1") && !userInput.equals("exit"));
             if(userInput.equals("-1")){
