@@ -101,9 +101,10 @@ public class algorithm_test {
                 routingTableR2.add(routingTableR1.get(i+2));
             } else if ((routingTableR2.get(i) == routingTableR1.get(i)) && (routingTableR2.get(i+2) == routingTableR1.get(i+2))){
                 // If a route exists that has next-hop N then replace distance of existing route with C
-                //routingTableR2.get(i+2) == routingTableR1.get(i+2)
+                
                 System.out.println("IN HERE!");
                 System.out.println(routingTableR2.get(i+2) + " == " + routingTableR1.get(i+2));
+
                 c = Integer.parseInt(routingTableR1.get(i+1)) + 2; 
                 routingTableR2.set(i+1, String.valueOf(c));
             } else if ((routingTableR2.get(i) == routingTableR1.get(i)) && (Integer.parseInt(routingTableR2.get(i+1)) > (Integer.parseInt(routingTableR1.get(i+1)) + 2))){
