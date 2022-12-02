@@ -103,8 +103,8 @@ public class algorithm_test {
                 c = Integer.parseInt(routingTableR1.get(i+1)) + weight;
                 routingTableR2.add(routingTableR1.get(i));
                 routingTableR2.add(String.valueOf(c));
-                routingTableR2.add(routingTableR1.get(i+2));
-            } else if ((routingTableR2.get(i) == routingTableR1.get(i)) && (routingTableR2.get(i+2) == routingTableR1.get(i+2))){
+                routingTableR2.add("R1"); // next hop is sender
+            } else if ((routingTableR2.get(i) == routingTableR1.get(i)) && (routingTableR2.get(i+2) == "R1")){
                 // If a route exists that has next-hop N then replace distance of existing route with C
                 
                 System.out.println("IN HERE!");
@@ -116,8 +116,13 @@ public class algorithm_test {
                 // If a route exists with distance greater than C then change the next-hop to N and distance to C   
                 c = Integer.parseInt(routingTableR1.get(i+1)) + weight;
                 routingTableR2.set(i+1, String.valueOf(c));
-                routingTableR2.set(i+2, routingTableR1.get(i+2));
+                routingTableR2.set(i+2, "R1");
             }
+
+            System.out.println("routingTableR2.get(i) [" + routingTableR2.get(i) + "] == routingTableR1.get(i) [" + routingTableR1.get(i) + "]: " 
+                    + (routingTableR2.get(i) == routingTableR1.get(i)) 
+                    + "\nroutingTableR2.get(i+2) [" + routingTableR2.get(i+2) + "] == routingTableR1.get(i+2) [" + routingTableR1.get(i+2) + "]: " 
+                    + (routingTableR2.get(i+2) == routingTableR1.get(i+2)));
         }
 
         return routingTableR2;
