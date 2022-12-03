@@ -9,7 +9,6 @@ class LunenfeldServer{
         String clientString;
         String userInput;
         String[] clientStringArray;
-
         List<String> routingTableR1 = new ArrayList<String>();
         List<String> routingTableR2 = new ArrayList<String>();
         List<String> updatedRoutingTableR2 = new ArrayList<String>();
