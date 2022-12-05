@@ -90,6 +90,7 @@ public class algorithm_test {
         System.out.println("DESTINATION | DISTANCE | NEXT HOP");
 
         for (int i = 0; (i+2) < routingTable.size(); i+=3){
+            //System.out.println("----------- | -------- | --------");
             if(routingTable.get(i+1).length() == 1){
                 System.out.println("  " + routingTable.get(i) + "  " + " | " + "    " + routingTable.get(i+1) 
                 + "   " + " | " + "   " + routingTable.get(i+2) + "   ");

@@ -1,4 +1,4 @@
-// To compile and run the code use commands "javac ApplesA1TCPClient.java" followed by "java ApplesA1TCPClient.java" in the command line.
+// To compile and run the code use commands "javac LunenfeldClient.java" followed by "java LunenfeldClient.java" in the command line.
 
 import java.io.*;
 import java.net.*;
