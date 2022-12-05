@@ -19,7 +19,7 @@ public class algorithm_test {
             // System.out.println("Let's populate R2 Routing Table");
             // do{ // Populate routingTableR2
             //     // Keeps scanner open until user inputs -1 or exit, at which point a break from the loop will occur
-            //     System.out.println("Enter the next network IP: ");  
+            //     System.out.println("Enter the next network IP ('-1' if finished entering or 'exit'): ");  
             //     userInput = inFromUser.readLine();
             //     if(!userInput.equals("-1")){
             //         routingTableR2.add(userInput);
@@ -35,7 +35,7 @@ public class algorithm_test {
             // System.out.println("Let's populate R1 Routing Table");
             // do{ // Populate routingTableR1
             //     // Keeps scanner open until user inputs -1 or exit, at which point a break from the loop will occur
-            //     System.out.println("Enter the next network IP: ");  
+            //     System.out.println("Enter the next network IP ('-1' if finished entering or 'exit'): ");  
             //     userInput = inFromUser.readLine();
             //     if(!userInput.equals("-1")){
             //         routingTableR1.add(userInput);
@@ -57,7 +57,7 @@ public class algorithm_test {
             routingTableR2.add("17");
             routingTableR2.add("R4");
 
-            clientMessage = "1.2.3.0 22 1.2.4.0 12 1.2.5.0 7";    // Incoming message does not include neighbors
+            clientMessage = "1.2.3.0 20 1.2.4.0 12 1.2.5.0 7";    // Incoming message does not include neighbors
 
             clientStringArray = clientMessage.split(" ");
             
@@ -110,20 +110,17 @@ public class algorithm_test {
 
         for (int i = 0; (i+2) < routingTableR1.size(); i+=3){
             if (routingTableR2.indexOf(routingTableR1.get(i)) == -1){
-                // If no route exists to V then add an entry to the local routing table for destination V with next-hop N and distance C
+            // If no route exists to V then add an entry to the local routing table for destination V with next-hop N and distance C
                 c = Integer.parseInt(routingTableR1.get(i+1)) + weight;
                 routingTableR2.add(routingTableR1.get(i));
                 routingTableR2.add(String.valueOf(c));
                 routingTableR2.add("R1"); // next hop is sender
             }else if ((routingTableR2.get(i).equals(routingTableR1.get(i)) && (routingTableR2.get(i+2).equals("R1")))){
-                // If a route exists that has next-hop N then replace distance of existing route with C
-                
-                // THE SECOND PART OF THIS LOGIC TEST IS WRONG. IF R1's MESSAGE IS ONLY PASSING 
-                // THE DESTINATION AND DISTANCE, HOW DO WE KNOW WHAT ITS NEXT HOPS ARE WITHIN THE SERVER????
+            // If a route exists that has next-hop N then replace distance of existing route with C
                 c = Integer.parseInt(routingTableR1.get(i+1)) + weight; 
                 routingTableR2.set(i+1, String.valueOf(c));
             }else if ((routingTableR2.get(i).equals(routingTableR1.get(i))) && (Integer.parseInt(routingTableR2.get(i+1)) > (Integer.parseInt(routingTableR1.get(i+1)) + 2))){
-                // If a route exists with distance greater than C then change the next-hop to N and distance to C   
+            // If a route exists with distance greater than C then change the next-hop to N and distance to C   
                 c = Integer.parseInt(routingTableR1.get(i+1)) + weight;
                 routingTableR2.set(i+1, String.valueOf(c));
                 routingTableR2.set(i+2, "R1");

@@ -7,7 +7,7 @@ class LunenfeldClient{
     public static void main(String argv[]) throws Exception {
         String userInput = "";
         String messageToSend = "";
-        String neighbor = "";
+        String neighbor = "";           // Holds neighbor information that is not sent in message to server
         String serverResponse;
 
         // Create input stream
@@ -22,7 +22,7 @@ class LunenfeldClient{
 
         do{
             do{
-                System.out.println("Enter the next network IP: ");  
+                System.out.println("Enter the next network IP ('-1' if finished entering or 'exit'): ");  
                 userInput = inFromUser.readLine();
                 if(!userInput.equals("-1") && !userInput.equals("exit")){
                     messageToSend += userInput + " ";
